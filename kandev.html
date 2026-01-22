@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Home</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            KanDev
+        </div>
+        
+        <div class="header-acoes">
+            <button class="btn-novo">
+            <span></span> Nova Tarefa
+        </button>
+
+        <div class="Perfil">
+            <img src="assets/icon_profile.png" alt="Ícone de Perfil">
+        </div>
+
+        </div>
+    </header>
+
+    <main>
+        <section class="coluna" data-status="começar">
+        <div class="coluna-header">
+                <span>Começar</span>
+                <span class="contador">(0)</span>
+            </div>
+
+            <div class="cartoes-container">
+
+            </div>
+
+            <div class="coluna-vazia">
+                <img src="assets/img vazio.jpg" alt="Imagem de ícone vazio">
+                <p>Nenhuma tarefa para começar</p>
+            </div>
+        </section>
+
+
+        <!-- Coluna 2 -->
+        <section class="coluna" data-status="fazendo">
+            <div class="coluna-header">
+                <span>Fazendo</span>
+                <span class="contador">(0)</span>
+            </div>
+
+            <div class="cartoes-container"></div>
+
+            <div class="coluna-vazia">
+                <img src="assets/img vazio.jpg" alt="Imagem de ícone vazio">
+                <p>Nenhuma tarefa em andamento</p>
+            </div>
+        </section>
+
+
+        <!-- Coluna 3 -->
+        <section class="coluna" data-status="concluído">
+            <div class="coluna-header">
+                <span>Concluído</span>
+                <span class="contador">(0)</span>
+            </div>
+
+            <div class="cartoes-container"></div>
+
+            <div class="coluna-vazia">
+                <img src="assets/img vazio.jpg" alt="Imagem de ícone vazio">
+                <p>Nenhuma tarefa concluída</p>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy 2026 - <a href="https://github.com/clebermarcolino" target="_blank">Cleber</a> e <a href="https://github.com/carloshgalves" target="_blank">Carlos</a></p>
+    </footer>
+
+</body>
+</html>
