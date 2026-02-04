@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: linear-gradient(#6366F1, #6a0dadc2);
+    background: linear-gradient(#6366F1, #6a0dadc2);
     background-attachment: fixed;
     height: 100%;
     overflow: hidden;
