@@ -18,13 +18,11 @@ export default function EsqueceSenha({ navigate }) {
   const validar = () => {
     const novosErros = {};
 
-    // Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       novosErros.email = "Informe um email válido.";
     }
 
-    // Nova senha
     if (form.novaSenha.length < 6) {
       novosErros.novaSenha = "A senha deve ter pelo menos 6 caracteres.";
     } else if (!/[A-Z]/.test(form.novaSenha)) {
@@ -33,7 +31,6 @@ export default function EsqueceSenha({ navigate }) {
       novosErros.novaSenha = "A senha deve conter pelo menos um número.";
     }
 
-    // Confirmar senha
     if (form.novaSenha !== form.confirmarSenha) {
       novosErros.confirmarSenha = "As senhas não coincidem.";
     }
