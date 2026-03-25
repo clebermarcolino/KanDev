@@ -10,6 +10,18 @@
   padding: 30px 20px;
 }
 
+.input-erro {
+  border: 1px solid red;
+  background-color: #fff5f5;
+}
+
+.mensagem-erro {
+  color:  red;
+  font-size: 0.78rem;
+  margin-top: 4px;
+  display: block;
+}
+
 .page-esquece-senha .container {
   position: relative;
   z-index: 10;

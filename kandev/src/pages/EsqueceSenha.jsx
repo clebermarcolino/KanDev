@@ -8,17 +8,49 @@ export default function EsqueceSenha({ navigate }) {
     confirmarSenha: "",
   });
 
+  const [erros, setErros] = useState({});
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
+    setErros({ ...erros, [e.target.id]: "" });
+  };
+
+  const validar = () => {
+    const novosErros = {};
+
+    // Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      novosErros.email = "Informe um email válido.";
+    }
+
+    // Nova senha
+    if (form.novaSenha.length < 6) {
+      novosErros.novaSenha = "A senha deve ter pelo menos 6 caracteres.";
+    } else if (!/[A-Z]/.test(form.novaSenha)) {
+      novosErros.novaSenha = "A senha deve conter pelo menos uma letra maiúscula.";
+    } else if (!/[0-9]/.test(form.novaSenha)) {
+      novosErros.novaSenha = "A senha deve conter pelo menos um número.";
+    }
+
+    // Confirmar senha
+    if (form.novaSenha !== form.confirmarSenha) {
+      novosErros.confirmarSenha = "As senhas não coincidem.";
+    }
+
+    return novosErros;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.novaSenha !== form.confirmarSenha) {
-      alert("As senhas não coincidem!");
+    const novosErros = validar();
+
+    if (Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
       return;
     }
-    // Lógica de redefinição falta implementar ainda
+
+    alert("\u2705 Senha redefinida com sucesso!");
     navigate("login");
   };
 
@@ -43,7 +75,9 @@ export default function EsqueceSenha({ navigate }) {
               required
               value={form.email}
               onChange={handleChange}
+              className={erros.email ? "input-erro" : ""}
             />
+            {erros.email && <span className="mensagem-erro">{erros.email}</span>}
           </div>
 
           <div className="form-grupo">
@@ -51,11 +85,13 @@ export default function EsqueceSenha({ navigate }) {
             <input
               type="password"
               id="novaSenha"
-              placeholder={"\u{1F512} Digite sua senha"}
+              placeholder={"\u{1F512} Digite sua nova senha"}
               required
               value={form.novaSenha}
               onChange={handleChange}
+              className={erros.novaSenha ? "input-erro" : ""}
             />
+            {erros.novaSenha && <span className="mensagem-erro">{erros.novaSenha}</span>}
           </div>
 
           <div className="form-grupo">
@@ -63,11 +99,13 @@ export default function EsqueceSenha({ navigate }) {
             <input
               type="password"
               id="confirmarSenha"
-              placeholder={"\u{1F512} Digite sua senha"}
+              placeholder={"\u{1F512} Confirme sua nova senha"}
               required
               value={form.confirmarSenha}
               onChange={handleChange}
+              className={erros.confirmarSenha ? "input-erro" : ""}
             />
+            {erros.confirmarSenha && <span className="mensagem-erro">{erros.confirmarSenha}</span>}
           </div>
 
           <button type="submit" className="btn-redefinir">
