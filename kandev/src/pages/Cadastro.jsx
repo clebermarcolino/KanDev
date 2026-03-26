@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/cadastro.css";
+import "../styles/base.css";
 
 export default function Cadastro({ navigate }) {
   const [form, setForm] = useState({

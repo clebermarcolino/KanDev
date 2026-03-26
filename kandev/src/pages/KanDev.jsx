@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import "../styles/kandev.css";
 import img_vazio from "../assets/img_vazio.jpg";
 import icon_profile from "../assets/icon_profile.png";
+import "../styles/base.css";
 
 const STATUS = ["começar", "fazendo", "concluído"];
 const LABELS = {

@@ -1,4 +1,5 @@
 import "../styles/home.css";
+import "../styles/base.css";
 
 export default function Home({ navigate }) {
   return (

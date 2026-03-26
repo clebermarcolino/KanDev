@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/esquece-senha.css";
+import "../styles/base.css";
 
 export default function EsqueceSenha({ navigate }) {
   const [form, setForm] = useState({

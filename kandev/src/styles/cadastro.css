@@ -183,3 +183,71 @@
 .page-cadastro .link-btn:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+  .page-cadastro {
+    padding: 20px 16px;
+    align-items: flex-start;
+  }
+
+  .page-cadastro .container {
+    padding: 36px 24px;
+    border-radius: 18px;
+    max-width: 100%;
+  }
+
+  .page-cadastro .logo h1 {
+    font-size: 2.4rem;
+  }
+
+  .page-cadastro .form-grupo input {
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .page-cadastro .btn-criar-conta {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .page-cadastro .btn-google {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  .page-cadastro .login-link {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 1rem;
+  }
+
+  .page-cadastro .link-btn {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .page-cadastro .container {
+    padding: 28px 16px;
+    border-radius: 14px;
+  }
+
+  .page-cadastro .logo h1 {
+    font-size: 2rem;
+  }
+
+  .page-cadastro .form-grupo label {
+    font-size: 0.85rem;
+  }
+
+  .page-cadastro .form-grupo input {
+    font-size: 0.95rem;
+  }
+
+  .page-cadastro .separator span {
+    font-size: 0.95rem;
+  }
+}
