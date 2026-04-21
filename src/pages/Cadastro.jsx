@@ -18,24 +18,61 @@ export default function Cadastro({ navigate }) {
     setErros({ ...erros, [e.target.id]: "" });
   };
 
+  const validar = () => {
+  const novosErros = {};
+
+  if (form.nome.trim().length < 3) {
+    novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    novosErros.email = "Informe um email válido.";
+  }
+
+  if (form.senha.length < 6) {
+    novosErros.senha = "A senha deve ter pelo menos 6 caracteres.";
+  } else if (!/[A-Z]/.test(form.senha)) {
+    novosErros.senha = "A senha deve conter pelo menos uma letra maiúscula.";
+  } else if (!/[0-9]/.test(form.senha)) {
+    novosErros.senha = "A senha deve conter pelo menos um número.";
+  }
+
+  if (form.senha !== form.confirmarSenha) {
+    novosErros.confirmarSenha = "As senhas não coincidem.";
+  }
+
+  return novosErros;
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.senha !== form.confirmarSenha) {
-      setErros({ confirmarSenha: "As senhas não coincidem." });
+    const novosErros = validar();
+    if(Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
       return;
     }
 
     try {
-      const response = await api.post("/auth/register", {
+      const { data: existentes } = await api.get(`/usuarios?email=${form.email}`);
+      if (existentes.length > 0) {
+        setErros({ email: "Este email já está cadastrado." });
+        return;
+      }
+
+      const { data: novoUsuario } = await api.post("/usuarios", {
         nome: form.nome,
         email: form.email,
-        senha: form.senha
+        senha: form.senha,
+        fotoPerfil: null,
       });
-      localStorage.setItem("token", response.data.token);
+
+      localStorage.setItem("usuarioId", novoUsuario.id);
+      localStorage.setItem("usuarioNome", novoUsuario.nome);
       alert("\u2705 Cadastro realizado!");
-      navigate("kandev");
+      navigate("login");
     } catch (error) {
-      setErros({ email: "Erro ao cadastrar. Verifique os dados ou se o email já está em uso." });
+      setErros({ email: "Erro ao cadastrar. Tente novamente. " });
     }
   };
 

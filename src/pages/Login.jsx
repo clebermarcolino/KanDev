@@ -12,18 +12,46 @@ export default function Login({ navigate }) {
     setErros({ ...erros, [e.target.id]: "" });
   };
 
+  const validar = () => {
+  const novosErros = {};
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(form.email)) {
+    novosErros.email = "Informe um email válido.";
+  }
+
+  if (form.senha.length < 6) {
+    novosErros.senha = "A senha deve ter pelo menos 6 caracteres.";
+  }
+
+  return novosErros;
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await api.post("/auth/login", {
-        email: form.email,
-        senha: form.senha
-      });
-      localStorage.setItem("token", response.data.token);
-      navigate("kandev");
-    } catch (error) {
-      setErros({ geral: "Email ou senha inválidos." });
+    const novosErros = validar();
+    if (Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
+      return;
     }
+
+    try {
+      const { data: usuarios } = await api.get(
+      `/usuarios?email=${form.email}&senha=${form.senha}`
+    );
+
+    if (usuarios.length === 0) {
+      setErros({ geral: "Email ou senha inválidos." });
+      return;
+    }
+
+      const usuario = usuarios[0];
+      localStorage.setItem("usuarioId", usuario.id);
+      localStorage.setItem("usuarioNome", usuario.nome);
+      navigate("kandev");
+      } catch (error) {
+        setErros({ geral: "Erro ao fazer login. Tente novamente." });
+      }
   };
 
   return (
@@ -79,6 +107,11 @@ export default function Login({ navigate }) {
             Entrar
           </button>
         </form>
+        {erros.geral && (
+          <span className="mensagem-erro" style={{ textAlign: "center", display: "block", marginTop: "8px" }}>
+            {erros.geral}
+          </span>
+        )}
 
         <div className="separator">
           <span>ou</span>

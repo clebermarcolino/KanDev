@@ -50,13 +50,19 @@ export default function EsqueceSenha({ navigate }) {
     }
 
     try {
-      // The backend uses @RequestParam for email
-      await api.post(`/auth/recovery?email=${encodeURIComponent(form.email)}`);
-      alert("\u2705 Se o email estiver cadastrado, um token de recuperação será gerado no console do servidor!");
+        const { data: usuarios } = await api.get(`/usuarios?email=${form.email}`);
+
+        if (usuarios.length === 0) {
+          setErros({ email: "Email não encontrado." });
+          return;
+        }
+
+        const usuario = usuarios[0];
+        await api.patch(`/usuarios/${usuario.id}`, { senha: form.novaSenha });
+      alert("\u2705 Senha redefinida com sucesso!");
       navigate("login");
     } catch (error) {
-      console.error("Erro na recuperação de senha", error);
-      setErros({ email: "Erro ao processar solicitação." });
+          setErros({ email: "Erro ao redefinir senha. Tente novamente." });
     }
   };
 

@@ -35,24 +35,26 @@ export default function Kandev({ navigate }) {
   });
 
   useEffect(() => {
-    carregarDados();
+    const id = localStorage.getItem("usuarioId");
+    if (!id) { 
+      navigate("login"); 
+      return; 
+    }
+    carregarDados(id);
   }, []);
 
-  const carregarDados = async () => {
+  const carregarDados = async (id) => {
     try {
-      const [tarefasRes, perfilRes] = await Promise.all([
-        api.get("/tasks"),
-        api.get("/users/me")
+      const [tarefasRes, usuarioRes] = await Promise.all([
+        api.get(`/tarefas?usuarioId=${id}`),
+        api.get(`/usuarios/${id}`)
       ]);
-      console.log("Tarefas carregadas do servidor:", tarefasRes.data);
       setTarefas(tarefasRes.data);
-      setPerfil({ nome: perfilRes.data.nome, email: perfilRes.data.email });
-      setFotoPerfil(perfilRes.data.profilePicture);
+      setPerfil({ nome: usuarioRes.data.nome, email: usuarioRes.data.email });
+      setFotoPerfil(usuarioRes.data.fotoPerfil || null);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
-      if (error.response?.status === 401) {
-        navigate("login");
-      }
+      navigate("login");
     }
   };
 
@@ -67,14 +69,16 @@ export default function Kandev({ navigate }) {
   const salvarTarefa = async (e) => {
     e.preventDefault();
     if (!novaTarefa.titulo.trim()) return;
+    const usuarioId = localStorage.getItem("usuarioId");
 
     try {
       if (editando !== null) {
-        await api.put(`/tasks/${editando}`, novaTarefa);
+          await api.put(`/tarefas/${editando}`, { ...novaTarefa, usuarioId });
+
       } else {
-        await api.post("/tasks", novaTarefa);
+          await api.post("/tarefas", { ...novaTarefa, usuarioId });
       }
-      carregarDados();
+      carregarDados(usuarioId);
       fecharModalTarefa();
     } catch (error) {
       console.error("Erro ao salvar tarefa", error);
@@ -90,8 +94,8 @@ export default function Kandev({ navigate }) {
   const excluirTarefa = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
       try {
-        await api.delete(`/tasks/${id}`);
-        carregarDados();
+        await api.delete(`/tarefas/${id}`);
+        carregarDados(localStorage.getItem("usuarioId"));
       } catch (error) {
         console.error("Erro ao excluir tarefa", error);
       }
@@ -100,8 +104,12 @@ export default function Kandev({ navigate }) {
 
   const salvarPerfil = async (e) => {
     e.preventDefault();
+    const id = localStorage.getItem("usuarioId");
     try {
-      await api.put("/users/me", { nome: perfil.nome, profilePicture: fotoPreview || fotoPerfil });
+        await api.patch(`/usuarios/${id}`, {
+        nome: perfil.nome,
+        fotoPerfil: fotoPreview || fotoPerfil
+    });
       setFotoPerfil(fotoPreview || fotoPerfil);
       setModalPerfilAberto(false);
       alert("\u2705 Perfil atualizado com sucesso!");
@@ -116,8 +124,8 @@ export default function Kandev({ navigate }) {
     const tarefa = tarefas.find(t => t.id === id);
     if (tarefa) {
       try {
-        await api.put(`/tasks/${id}`, { ...tarefa, status: novoStatus });
-        carregarDados();
+        await api.patch(`/tarefas/${id}`, { status: novoStatus });
+        carregarDados(localStorage.getItem("usuarioId"));
       } catch (error) {
         console.error("Erro ao mover tarefa", error);
       }
@@ -193,7 +201,8 @@ const handleFotoChange = (e) => {
                 </div>
                 <div className="dropdown-separator"></div>
                 <div className="dropdown-item logout" onClick={() => {
-                  localStorage.removeItem("token");
+                  localStorage.removeItem("usuarioId");
+                  localStorage.removeItem("usuarioNome");
                   navigate("login");
                 }}>
                   {"\u{1F6AA} Sair"}
