@@ -11,10 +11,23 @@ export default function EsqueceSenha({ navigate }) {
   });
 
   const [erros, setErros] = useState({});
+  const [carregando, setCarregando] = useState(false);
+  const [visibilidade, setVisibilidade] = useState({
+  novaSenha: false,
+  confirmarSenha: false,
+});
+
+const toggleVisibilidade = (campo) => {
+  setVisibilidade((prev) => ({
+    ...prev,
+    [campo]: !prev[campo],
+  }));
+};
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
-    setErros({ ...erros, [e.target.id]: "" });
+    const { id, value } = e.target;
+    setForm((prev) => ({ ...prev, [id]: value }));
+    if (erros[id]) setErros((prev) => ({ ...prev, [id]: "" }));
   };
 
   const validar = () => {
@@ -49,11 +62,14 @@ export default function EsqueceSenha({ navigate }) {
       return;
     }
 
+    setCarregando(true);
+
     try {
         const { data: usuarios } = await api.get(`/usuarios?email=${form.email}`);
 
         if (usuarios.length === 0) {
           setErros({ email: "Email não encontrado." });
+          setCarregando(false);
           return;
         }
 
@@ -63,6 +79,9 @@ export default function EsqueceSenha({ navigate }) {
       navigate("login");
     } catch (error) {
           setErros({ email: "Erro ao redefinir senha. Tente novamente." });
+    }
+    finally {
+      setCarregando(false);
     }
   };
 
@@ -94,8 +113,9 @@ export default function EsqueceSenha({ navigate }) {
 
           <div className="form-grupo">
             <label htmlFor="novaSenha">Nova senha</label>
-            <input
-              type="password"
+            <div className="input-com-icone">
+              <input
+              type={visibilidade.novaSenha ? "text" : "password"}
               id="novaSenha"
               placeholder={"\u{1F512} Digite sua nova senha"}
               required
@@ -103,13 +123,23 @@ export default function EsqueceSenha({ navigate }) {
               onChange={handleChange}
               className={erros.novaSenha ? "input-erro" : ""}
             />
+            <button 
+              type="button" 
+              className="btn-olho" 
+              onClick={() => toggleVisibilidade("novaSenha")}
+            >
+              {visibilidade.novaSenha ? "\u{25C9}" : "\u{25CE}"}
+            </button>
+          </div>
+            
             {erros.novaSenha && <span className="mensagem-erro">{erros.novaSenha}</span>}
           </div>
 
           <div className="form-grupo">
             <label htmlFor="confirmarSenha">Confirmar nova senha</label>
-            <input
-              type="password"
+            <div className="input-com-icone">
+              <input
+              type={visibilidade.confirmarSenha ? "text" : "password"}
               id="confirmarSenha"
               placeholder={"\u{1F512} Confirme sua nova senha"}
               required
@@ -117,11 +147,19 @@ export default function EsqueceSenha({ navigate }) {
               onChange={handleChange}
               className={erros.confirmarSenha ? "input-erro" : ""}
             />
+            <button 
+              type="button" 
+              className="btn-olho" 
+              onClick={() => toggleVisibilidade("confirmarSenha")}
+            >
+              {visibilidade.confirmarSenha ? "\u{25C9}" : "\u{25CE}"}
+            </button>
+            </div>
             {erros.confirmarSenha && <span className="mensagem-erro">{erros.confirmarSenha}</span>}
           </div>
 
-          <button type="submit" className="btn-redefinir">
-            Redefinir senha
+          <button type="submit" className="btn-redefinir" disabled={carregando}>
+            {carregando ? "Processando" : "Redefinir Senha"}
           </button>
         </form>
 

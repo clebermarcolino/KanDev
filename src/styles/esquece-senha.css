@@ -71,6 +71,30 @@
   margin-bottom: 10px;
 }
 
+.btn-olho {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.input-com-icone {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-com-icone input {
+  width: 100%;
+  padding-right: 40px; /* Espaço para o ícone não cobrir o texto */
+}
+
 .page-esquece-senha .form-grupo label {
   display: block;
   margin-bottom: 1.0rem;
