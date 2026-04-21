@@ -6,6 +6,16 @@ import "../styles/base.css";
 export default function Login({ navigate }) {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [erros, setErros] = useState({});
+  const [visibilidade, setVisibilidade] = useState({
+    senha: false,
+  });
+  
+  const toggleVisibilidade = (campo) => {
+    setVisibilidade((prev) => ({
+      ...prev,
+      [campo]: !prev[campo],
+    }));
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -83,9 +93,9 @@ export default function Login({ navigate }) {
 
           <div className="form-grupo">
             <label htmlFor="senha">Senha</label>
-            <div className="password-wrapper">
+            <div className="input-com-icone">
               <input
-                type="password"
+                type={visibilidade.senha ? "text" :"password"}
                 id="senha"
                 placeholder={"\u{1F512} Digite sua senha"}
                 required
@@ -93,6 +103,16 @@ export default function Login({ navigate }) {
                 onChange={handleChange}
                 className={erros.senha ? "input-erro" : ""}
               />
+              <button 
+              type="button" 
+              className="btn-olho" 
+              onClick={() => toggleVisibilidade("senha")}
+            >
+              {visibilidade.senha ? "\u{25C9}" : "\u{25CE}"}
+            </button>
+            </div>
+            <div className="password-wrapper">
+              
             </div>
             {erros.senha && <span className="mensagem-erro">{erros.senha}</span>}
           </div>
