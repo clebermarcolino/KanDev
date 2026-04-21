@@ -12,6 +12,17 @@ export default function Cadastro({ navigate }) {
   });
 
   const [erros, setErros] = useState({});
+  const [visibilidade, setVisibilidade] = useState({
+    senha: false,
+    confirmarSenha: false,
+  });
+  
+  const toggleVisibilidade = (campo) => {
+    setVisibilidade((prev) => ({
+      ...prev,
+      [campo]: !prev[campo],
+    }));
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -54,7 +65,9 @@ export default function Cadastro({ navigate }) {
     }
 
     try {
-      const { data: existentes } = await api.get(`/usuarios?email=${form.email}`);
+      const emailNormalizado = form.email.toLowerCase();
+      const { data: existentes } = await api.get(`/usuarios?email=${emailNormalizado}`);
+
       if (existentes.length > 0) {
         setErros({ email: "Este email já está cadastrado." });
         return;
@@ -62,7 +75,7 @@ export default function Cadastro({ navigate }) {
 
       const { data: novoUsuario } = await api.post("/usuarios", {
         nome: form.nome,
-        email: form.email,
+        email: emailNormalizado,
         senha: form.senha,
         fotoPerfil: null,
       });
@@ -113,8 +126,9 @@ export default function Cadastro({ navigate }) {
 
           <div className="form-grupo">
             <label htmlFor="senha">Senha</label>
-            <input
-              type="password"
+            <div className="input-com-icone">
+              <input
+              type={visibilidade.senha ? "text" : "password"}
               id="senha"
               placeholder={"\u{1F512} Digite sua senha"}
               required
@@ -122,13 +136,23 @@ export default function Cadastro({ navigate }) {
               onChange={handleChange}
               className={erros.senha ? "input-erro" : ""}
             />
+            <button 
+              type="button" 
+              className="btn-olho" 
+              onClick={() => toggleVisibilidade("senha")}
+            >
+              {visibilidade.senha ? "\u{25C9}" : "\u{25CE}"}
+            </button>
+            </div>
+            
             {erros.senha && <span className="mensagem-erro">{erros.senha}</span>}
           </div>
 
           <div className="form-grupo">
             <label htmlFor="confirmarSenha">Confirmar senha</label>
-            <input
-              type="password"
+            <div className="input-com-icone">
+              <input
+              type={visibilidade.novaSenha ? "text" : "password"}
               id="confirmarSenha"
               placeholder={"\u{1F512} Digite sua senha novamente"}
               required
@@ -136,6 +160,15 @@ export default function Cadastro({ navigate }) {
               onChange={handleChange}
               className={erros.confirmarSenha ? "input-erro" : ""}
             />
+            <button 
+              type="button" 
+              className="btn-olho" 
+              onClick={() => toggleVisibilidade("novaSenha")}
+            >
+              {visibilidade.novaSenha ? "\u{25C9}" : "\u{25CE}"}
+            </button>
+            </div>
+            
             {erros.confirmarSenha && <span className="mensagem-erro">{erros.confirmarSenha}</span>}
           </div>
 
