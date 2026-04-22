@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/cadastro.css";
 import "../styles/base.css";
 
-export default function Cadastro({ navigate }) {
+export default function Cadastro() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -83,7 +86,7 @@ export default function Cadastro({ navigate }) {
       localStorage.setItem("usuarioId", novoUsuario.id);
       localStorage.setItem("usuarioNome", novoUsuario.nome);
       alert("\u2705 Cadastro realizado!");
-      navigate("login");
+      navigate("/login");
     } catch (error) {
       setErros({ email: "Erro ao cadastrar. Tente novamente. " });
     }
@@ -92,7 +95,7 @@ export default function Cadastro({ navigate }) {
   return (
     <div className="page-cadastro">
       <div className="container">
-        <div className="logo" onClick={() => navigate("home")}>
+        <div className="logo" onClick={() => navigate("/")}>
           <h1>KanDev</h1>
         </div>
 
@@ -179,7 +182,7 @@ export default function Cadastro({ navigate }) {
 
         <div className="login-link">
           <p>Já possui uma conta?</p>
-          <button className="link-btn" onClick={() => navigate("login")}>
+          <button className="link-btn" onClick={() => navigate("/login")}>
             Entrar
           </button>
         </div>

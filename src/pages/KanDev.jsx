@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/kandev.css";
 import img_vazio from "../assets/img_vazio.jpg";
@@ -17,7 +18,8 @@ const EMPTY_MSG = {
   "DONE": "Nenhuma tarefa concluída",
 };
 
-export default function Kandev({ navigate }) {
+export default function Kandev() {
+  const navigate = useNavigate();
   const [tarefas, setTarefas] = useState([]);
   const [modalTarefaAberto, setModalTarefaAberto] = useState(false);
   const [novaTarefa, setNovaTarefa] = useState({ titulo: "", descricao: "", status: "TODO" });
@@ -37,11 +39,11 @@ export default function Kandev({ navigate }) {
   useEffect(() => {
     const id = localStorage.getItem("usuarioId");
     if (!id) { 
-      navigate("login"); 
+      navigate("/login"); 
       return; 
     }
     carregarDados(id);
-  }, []);
+  }, [navigate]);
 
   const carregarDados = async (id) => {
     try {
@@ -54,7 +56,7 @@ export default function Kandev({ navigate }) {
       setFotoPerfil(usuarioRes.data.fotoPerfil || null);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
-      navigate("login");
+      navigate("/login");
     }
   };
 
@@ -203,7 +205,7 @@ const handleFotoChange = (e) => {
                 <div className="dropdown-item logout" onClick={() => {
                   localStorage.removeItem("usuarioId");
                   localStorage.removeItem("usuarioNome");
-                  navigate("login");
+                  navigate("/login");
                 }}>
                   {"\u{1F6AA} Sair"}
                 </div>

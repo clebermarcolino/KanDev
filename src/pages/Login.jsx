@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/login.css";
 import "../styles/base.css";
 
-export default function Login({ navigate }) {
+export default function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", senha: "" });
   const [erros, setErros] = useState({});
   const [visibilidade, setVisibilidade] = useState({
@@ -58,7 +60,7 @@ export default function Login({ navigate }) {
       const usuario = usuarios[0];
       localStorage.setItem("usuarioId", usuario.id);
       localStorage.setItem("usuarioNome", usuario.nome);
-      navigate("kandev");
+      navigate("/kandev");
       } catch (error) {
         setErros({ geral: "Erro ao fazer login. Tente novamente." });
       }
@@ -70,7 +72,7 @@ export default function Login({ navigate }) {
 
       <div className="container">
         <div className="logo-area">
-          <div className="logo" onClick={() => navigate("home")}>
+          <div className="logo" onClick={() => navigate("/")}>
             <h1>KanDev</h1>
           </div>
         </div>
@@ -118,7 +120,7 @@ export default function Login({ navigate }) {
           </div>
 
           <div className="senha">
-            <button className="link-btn" onClick={() => navigate("esquece-senha")}>
+            <button className="link-btn" onClick={() => navigate("/esquece-senha")}>
               Esqueceu a senha?
             </button>
           </div>
@@ -135,7 +137,7 @@ export default function Login({ navigate }) {
 
         <div className="cadastro">
           <p>Não possui uma conta?</p>
-          <button className="link-btn" onClick={() => navigate("cadastro")}>
+          <button className="link-btn" onClick={() => navigate("/cadastro")}>
             Crie sua conta agora
           </button>
         </div>

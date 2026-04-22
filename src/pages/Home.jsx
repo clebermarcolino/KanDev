@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
 import "../styles/base.css";
 
-export default function Home({ navigate }) {
+export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="page-home">
       <header>
@@ -11,10 +14,10 @@ export default function Home({ navigate }) {
             Kanban simples, rápido e feito para planejar seu cotidiano. Organize
             tarefas, projetos, ideias sem complicação e totalmente gratuito.
           </p>
-          <button className="btn-login" onClick={() => navigate("login")}>
+          <button className="btn-login" onClick={() => navigate("/login")}>
             Login
           </button>
-          <button className="btn-cadastro" onClick={() => navigate("cadastro")}>
+          <button className="btn-cadastro" onClick={() => navigate("/cadastro")}>
             Cadastre-se
           </button>
         </div>

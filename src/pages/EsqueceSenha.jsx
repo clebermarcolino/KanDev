@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/esquece-senha.css";
 import "../styles/base.css";
 
-export default function EsqueceSenha({ navigate }) {
+export default function EsqueceSenha() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     novaSenha: "",
@@ -76,7 +79,7 @@ const toggleVisibilidade = (campo) => {
         const usuario = usuarios[0];
         await api.patch(`/usuarios/${usuario.id}`, { senha: form.novaSenha });
       alert("\u2705 Senha redefinida com sucesso!");
-      navigate("login");
+      navigate("/login");
     } catch (error) {
           setErros({ email: "Erro ao redefinir senha. Tente novamente." });
     }
@@ -88,7 +91,7 @@ const toggleVisibilidade = (campo) => {
   return (
     <div className="page-esquece-senha">
       <div className="container">
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <h1>KanDev</h1>
         </div>
 
@@ -164,7 +167,7 @@ const toggleVisibilidade = (campo) => {
         </form>
 
         <div className="voltar-login">
-          <button className="link-btn" onClick={() => navigate("login")}>
+          <button className="link-btn" onClick={() => navigate("/login")}>
             ← Voltar para o login
           </button>
         </div>
