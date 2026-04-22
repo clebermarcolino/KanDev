@@ -136,52 +136,6 @@
   box-shadow: 0 12px 30px rgba(124, 58, 237, 0.35);
 }
 
-.page-cadastro .separator {
-  display: flex;
-  align-items: center;
-  margin: 28px 0;
-  color: #5f6368;
-  font-size: 14px;
-}
-
-.page-cadastro .separator::before,
-.page-cadastro .separator::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #dadce0;
-}
-
-.page-cadastro .separator span {
-  padding: 0 16px;
-  font-size: 1.1rem;
-}
-
-.page-cadastro .google-placeholder {
-  display: flex;
-  justify-content: center;
-}
-
-.page-cadastro .btn-google {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0.85rem 2rem;
-  border: 1px solid #dadce0;
-  border-radius: 25px;
-  background: white;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #3c4043;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.page-cadastro .btn-google:hover {
-  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-  transform: translateY(-1px);
-}
-
 .page-cadastro .login-link {
   display: flex;
   justify-content: center;
