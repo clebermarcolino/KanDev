@@ -565,3 +565,101 @@ footer a:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(99, 102, 241, 0.45);
 }
+
+@media (max-width: 1024px) {
+  main {
+    justify-content: flex-start;
+    overflow-x: auto; 
+    padding: 20px;
+    -webkit-overflow-scrolling: touch; 
+  }
+
+  .coluna {
+    width: 280px; 
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .btn-novo span {
+    display: none;
+  }
+  
+  .btn-novo {
+    padding: 10px;
+    width: 42px;
+    height: 42px;
+    justify-content: center;
+  }
+
+  main {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .coluna {
+    width: 85vw;
+    min-width: 260px;
+    max-height: calc(100vh - 180px);
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-header {
+    padding: 16px 20px;
+  }
+
+  .form-grupo {
+    padding: 12px 20px;
+  }
+
+  .modal-acoes {
+    flex-direction: column-reverse;
+    padding: 16px 20px;
+  }
+
+  .btn-salvar, .btn-cancelar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 20px;
+  }
+
+  .perfil-icone {
+    width: 36px;
+    height: 36px;
+  }
+
+  .coluna-header {
+    font-size: 1.15rem;
+  }
+
+  .perfil-dropdown {
+    right: -10px;
+    width: 180px;
+  }
+}
+
+main::-webkit-scrollbar {
+  height: 8px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
