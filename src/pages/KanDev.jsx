@@ -133,7 +133,7 @@ export default function Kandev({ navigate }) {
   };
 
   const handleDragOver = (e) => {
-  e.preventDefault(); // necessário pra permitir drop
+  e.preventDefault();
 };
 
 const handleDragStart = (e, id) => {

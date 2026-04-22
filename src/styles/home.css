@@ -10,7 +10,6 @@
 }
 
 .page-home {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--white);
   color: var(--gray-900);
   line-height: 1.6;
