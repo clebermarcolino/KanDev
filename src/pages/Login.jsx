@@ -40,31 +40,39 @@ export default function Login() {
 };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const novosErros = validar();
-    if (Object.keys(novosErros).length > 0) {
-      setErros(novosErros);
+  e.preventDefault();
+  const novosErros = validar();
+  
+  if (Object.keys(novosErros).length > 0) {
+    setErros(novosErros);
+    return;
+  }
+
+  try {
+    const emailNormalizado = form.email.toLowerCase();
+
+    const { data: usuariosPorEmail } = await api.get(`/usuarios?email=${emailNormalizado}`);
+
+    if (usuariosPorEmail.length === 0) {
+      setErros({ email: "Este email não está cadastrado." });
       return;
     }
 
-    try {
-      const { data: usuarios } = await api.get(
-      `/usuarios?email=${form.email}&senha=${form.senha}`
-    );
+    const usuario = usuariosPorEmail[0];
 
-    if (usuarios.length === 0) {
-      setErros({ geral: "Email ou senha inválidos." });
+    if (usuario.senha !== form.senha) {
+      setErros({ senha: "Senha incorreta." });
       return;
     }
 
-      const usuario = usuarios[0];
-      localStorage.setItem("usuarioId", usuario.id);
-      localStorage.setItem("usuarioNome", usuario.nome);
-      navigate("/kandev");
-      } catch (error) {
-        setErros({ geral: "Erro ao fazer login. Tente novamente." });
-      }
-  };
+    localStorage.setItem("usuarioId", usuario.id);
+    localStorage.setItem("usuarioNome", usuario.nome);
+    navigate("/kandev");
+
+  } catch (error) {
+    setErros({ geral: "Erro ao conectar com o servidor. Tente novamente." });
+  }
+};
 
   return (
     <div className="page-login">
