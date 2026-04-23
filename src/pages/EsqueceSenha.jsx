@@ -168,7 +168,7 @@ const toggleVisibilidade = (campo) => {
 
         <div className="voltar-login">
           <button className="link-btn" onClick={() => navigate("/login")}>
-            ← Voltar para o login
+            Voltar para o login
           </button>
         </div>
       </div>

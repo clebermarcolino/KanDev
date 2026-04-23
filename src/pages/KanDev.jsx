@@ -245,7 +245,7 @@ const handleFotoChange = (e) => {
                     {tarefa.descricao && <div className="descricao">{tarefa.descricao}</div>}
                     <div className="acoes">
                       <span title="Editar" onClick={() => editarTarefa(tarefa)}>{'\u270F'}</span>
-                      <span title="Excluir" onClick={() => excluirTarefa(tarefa.id)}>🗑️</span>
+                      <span title="Excluir" onClick={() => excluirTarefa(tarefa.id)}>{'\u{1F5D1}'}</span>
                     </div>
                   </div>
                 ))}
@@ -277,7 +277,7 @@ const handleFotoChange = (e) => {
         <div className="modal-overlay" onClick={fecharModalTarefa}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <div className="modal-icon">{editando !== null ? "✏️" : "📝"}</div>
+              <div className="modal-icon">{editando !== null ? "\u270F\uFE0F" : "\u{1F4DD}\uFE0F"}</div>
               <h2>{editando !== null ? "Editar Tarefa" : "Nova Tarefa"}</h2>
               <button className="modal-fechar" onClick={fecharModalTarefa}>✕</button>
             </div>
