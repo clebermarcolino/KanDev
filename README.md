@@ -38,7 +38,34 @@ O **KanDev** é uma aplicação Kanban desenvolvida para facilitar a organizaç�
 
 ## 🖥️ Telas do Sistema
 
-> _Adicione aqui prints das telas: Home, Login, Cadastro, Kanban e Edição de Perfil_
+<img width="1351" height="600" alt="home" src="https://github.com/user-attachments/assets/91f521be-1d72-4678-b480-84006bffbdc8" />
+<img width="1353" height="601" alt="home 2" src="https://github.com/user-attachments/assets/4359d060-a8c6-44ea-94c0-6f3dda805313" />
+
+Home
+
+#
+
+<img width="1354" height="601" alt="login" src="https://github.com/user-attachments/assets/6227ffc8-c817-48ed-8c46-19ecaeb3b211" />
+
+Login
+
+#
+
+<img width="1351" height="605" alt="esquece senha" src="https://github.com/user-attachments/assets/92b0fbb3-53bb-4123-b6fd-9421f58fdd74" />
+
+Esquece Senha
+
+#
+
+<img width="1353" height="602" alt="cadastro" src="https://github.com/user-attachments/assets/e9ebc034-37d1-4676-b279-41fbc15e5a95" />
+
+Cadastro
+
+#
+
+<img width="1365" height="605" alt="página principal" src="https://github.com/user-attachments/assets/450052af-8189-4203-938d-ccae743e45a1" />
+
+Tela principal
 
 ---
 
