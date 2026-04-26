@@ -19,7 +19,7 @@
 
 ## 📋 Sobre o Projeto
 
-O **KanDev** é uma aplicação Kanban desenvolvida para facilitar a organização de tarefas do dia a dia. Com uma interface intuitiva e responsiva, o usuário pode criar, mover e gerenciar tarefas entre três colunas: **Começar**, **Fazendo** e **Concluído** — com suporte a arrastar e soltar.
+O **KanDev** é uma aplicação Kanban desenvolvida para facilitar a organização de tarefas do dia a dia. Com uma interface intuitiva e responsiva, o usuário pode criar, mover e gerenciar tarefas entre três colunas: **Começar**, **Fazendo** e **Concluído** com suporte a arrastar e soltar.
 
 ---
 
