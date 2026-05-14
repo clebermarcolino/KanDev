@@ -589,14 +589,15 @@ footer a:hover {
   }
 
   .btn-novo span {
-    display: none;
+    display: inline;
   }
   
   .btn-novo {
-    padding: 10px;
-    width: 42px;
-    height: 42px;
+    padding: 10px 15px;
+    width: auto;
+    height: auto;
     justify-content: center;
+    border-radius: 22px;
   }
 
   main {
